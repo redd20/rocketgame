@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Rocket : MonoBehaviour {
     [SerializeField] int maxFuel = 30000;
@@ -23,12 +21,15 @@ public class Rocket : MonoBehaviour {
     public float fuelingRate;
     public float fuelUsage;
     private bool isWinning = false;
+<<<<<<< HEAD
     [SerializeField] Text text;
     [SerializeField] Light rightFlare;
     [SerializeField] Light leftFlare;
     [SerializeField] Text winScreen;
     [SerializeField] UnityEngine.Object debris;
     private bool isexploding = false;
+=======
+>>>>>>> parent of 91da4f4... added lighting
 
     #endregion
 
@@ -48,6 +49,7 @@ public class Rocket : MonoBehaviour {
         ThrustEffects();
         FuelingProcess();
         WinTheGame();
+<<<<<<< HEAD
         text.text = fuel.ToString();
 
     }
@@ -60,6 +62,8 @@ public class Rocket : MonoBehaviour {
                 Instantiate(debris,this.transform);
             }
         
+=======
+>>>>>>> parent of 91da4f4... added lighting
     }
 
     private void WinTheGame()
@@ -67,8 +71,6 @@ public class Rocket : MonoBehaviour {
         if (isWinning && !isThrusting)
         {
             print("You have won");
-            winScreen.enabled = true;
-            Invoke("LoadNextScene", 2f);
         }
     }
 
@@ -116,26 +118,23 @@ public class Rocket : MonoBehaviour {
                 break;
             default:
                 print(" i died ");
+<<<<<<< HEAD
                 isexploding = true;
                 Invoke("LoadNextScene", 2f);
 
+=======
+>>>>>>> parent of 91da4f4... added lighting
                 break;
         }
     }
+        
 
-    private static void LoadNextScene()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    private void ThrustEffects()
+        private void ThrustEffects()
     {
         if (isThrusting)
         {
             rightFlame.enabled = true;
             leftFlame.enabled = true;
-            rightFlare.enabled = true;
-            leftFlare.enabled = true;
             fuel = fuel - fuelUsage;
             if (thrustSound.isPlaying == false)
             {
@@ -146,9 +145,6 @@ public class Rocket : MonoBehaviour {
         {
             rightFlame.enabled = false;
             leftFlame.enabled = false;
-            rightFlare.enabled = false;
-            leftFlare.enabled = false;
-
             thrustSound.Stop();
 
         }
