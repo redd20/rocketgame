@@ -4,39 +4,107 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Rocket : MonoBehaviour {
+    [SerializeField] int maxFuel = 30000;
 
 
     #region variables
-    public bool isRotatingRight = false;
+    [SerializeField] bool isRotatingRight = false;
     Rigidbody rb;
-    public float RcsThrust;
-    public float mainThrust;
+    [SerializeField] float RcsThrust;
+    [SerializeField] float mainThrust;
     public AudioSource thrustSound;
     public MeshRenderer rightFlame;
     public MeshRenderer leftFlame;
     public bool isThrusting = false;
-    
+    private bool isFueling;
+    public float fuel;
+    public float fuelingRate;
+    public float fuelUsage;
+    private bool isWinning = false;
+
     #endregion
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
         thrustSound.Stop();
+        fuel = maxFuel;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         ThrustControl();
         RotationMechanic();
         ThrustEffects();
-	}
+        FuelingProcess();
+        WinTheGame();
+    }
 
-    private void ThrustEffects()
+    private void WinTheGame()
+    {
+        if (isWinning && !isThrusting)
+        {
+            print("You have won");
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "fuel":
+                isFueling = false;
+                break;
+            case "win":
+                isWinning = false;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void FuelingProcess()
+    {
+        if (isFueling && fuel < maxFuel)
+        {
+            fuel = fuel + fuelingRate;
+        }
+        else if (isFueling && fuel > maxFuel)
+        {
+            fuel = maxFuel;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "friendly":
+                print(" i hit a friend");
+                break;
+            case "fuel":
+                print("fueling");
+                isFueling = true;
+                break;
+            case "win":
+                print(" just stop now ");
+                isWinning = true;
+                break;
+            default:
+                print(" i died ");
+                break;
+        }
+    }
+        
+
+        private void ThrustEffects()
     {
         if (isThrusting)
         {
             rightFlame.enabled = true;
             leftFlame.enabled = true;
+            fuel = fuel - fuelUsage;
             if (thrustSound.isPlaying == false)
             {
                 thrustSound.Play();
@@ -77,7 +145,7 @@ public class Rocket : MonoBehaviour {
 
     private void ThrustControl()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && fuel > 0f)
         {
             //print("thrusting");
             rb.AddRelativeForce(Vector3.up * (mainThrust * Time.deltaTime));
