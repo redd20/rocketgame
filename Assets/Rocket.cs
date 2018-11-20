@@ -23,12 +23,15 @@ public class Rocket : MonoBehaviour {
     private bool isWinning = false;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     [SerializeField] Text text;
     [SerializeField] Light rightFlare;
     [SerializeField] Light leftFlare;
     [SerializeField] Text winScreen;
     [SerializeField] UnityEngine.Object debris;
     private bool isexploding = false;
+=======
+>>>>>>> parent of 91da4f4... added lighting
 =======
 >>>>>>> parent of 91da4f4... added lighting
 =======
@@ -54,6 +57,7 @@ public class Rocket : MonoBehaviour {
         WinTheGame();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         text.text = fuel.ToString();
 
     }
@@ -66,6 +70,8 @@ public class Rocket : MonoBehaviour {
                 Instantiate(debris,this.transform);
             }
         
+=======
+>>>>>>> parent of 91da4f4... added lighting
 =======
 >>>>>>> parent of 91da4f4... added lighting
 =======
@@ -126,9 +132,12 @@ public class Rocket : MonoBehaviour {
                 print(" i died ");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 isexploding = true;
                 Invoke("LoadNextScene", 2f);
 
+=======
+>>>>>>> parent of 91da4f4... added lighting
 =======
 >>>>>>> parent of 91da4f4... added lighting
 =======
