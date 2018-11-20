@@ -27,6 +27,8 @@ public class Rocket : MonoBehaviour {
     [SerializeField] Light rightFlare;
     [SerializeField] Light leftFlare;
     [SerializeField] Text winScreen;
+    [SerializeField] UnityEngine.Object debris;
+    private bool isexploding = false;
 
     #endregion
 
@@ -35,6 +37,7 @@ public class Rocket : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         thrustSound.Stop();
         fuel = maxFuel;
+
 	}
 	
 	// Update is called once per frame
@@ -46,6 +49,16 @@ public class Rocket : MonoBehaviour {
         FuelingProcess();
         WinTheGame();
         text.text = fuel.ToString();
+
+    }
+
+    private void Explode()
+    {
+        
+            for (int i = 0; i < 20; i++)
+            {
+                Instantiate(debris,this.transform);
+            }
         
     }
 
@@ -103,7 +116,9 @@ public class Rocket : MonoBehaviour {
                 break;
             default:
                 print(" i died ");
-                LoadNextScene();
+                isexploding = true;
+                Invoke("LoadNextScene", 2f);
+
                 break;
         }
     }
